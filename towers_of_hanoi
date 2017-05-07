@@ -5,7 +5,7 @@ puts "Welcome to 'Towers of Hanoi!' The rules are simple:
         2. Unless the array is empty, the numbers must 
            remain in descending order. 
         3. You win when you successfully move every number 
-           to a new stack.
+           to a new peg.
            
     How many 'disks' would you like to start with?"
     tower_height = gets.chomp.to_i
