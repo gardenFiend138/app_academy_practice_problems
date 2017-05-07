@@ -1,0 +1,83 @@
+puts "Welcome to 'Towers of Hanoi!' The rules are simple: 
+
+        1. You must move one number from the end of an 
+           array each turn.
+        2. Unless the array is empty, the numbers must 
+           remain in descending order. 
+        3. You win when you successfully move every number 
+           to a new stack.
+           
+    How many 'disks' would you like to start with?"
+    tower_height = gets.chomp.to_i
+
+    pegs = [
+        (1..tower_height).to_a.reverse,
+        [],
+        [] 
+        
+        ]
+
+    moves_count = 0
+     
+    while pegs[1] != (1..tower_height).to_a.reverse || 
+           pegs[2] != (1..tower_height).to_a.reverse  
+           
+        puts  "You have made #{moves_count} moves.
+        
+               Stack 1: #{pegs[0]}
+               Stack 2: #{pegs[1]}
+               Stack 3: #{pegs[2]}
+              
+            Which peg would you like to take from [1/2/3]?"
+              
+            stack_remove = gets.chomp.to_i 
+        
+        if (1..3).include?(stack_remove) && pegs[stack_remove - 1] != [] 
+                removed_number = pegs[stack_remove - 1].last     
+        else 
+             puts "That's not a valid peg."
+            redo
+        end
+
+        puts "Which peg would you like to move the number to [1,2,3]?"
+        stack_place = gets.chomp.to_i 
+        
+        if (1..3).include?(stack_place)
+            stack_place = pegs[stack_place - 1]
+            
+            if stack_place == [] || removed_number < stack_place.last 
+                stack_place << removed_number
+                pegs[stack_remove - 1].pop
+            end 
+            
+        else 
+            puts "That's not a valid peg."
+             redo 
+        end
+        
+        
+        moves_count += 1
+        
+        if pegs[1] == (1..tower_height).to_a.reverse || 
+           pegs[2] == (1..tower_height).to_a.reverse
+           
+            puts "You Win! You completed the 'Towers of Hanoi' with #{tower_height} 
+            disks in #{moves_count} turns! The minimum number of moves this puzzle 
+            can be solved in is #{2**(tower_height) - 1}. 
+            
+            Peg 1: #{pegs[0]}
+            Peg 2: #{pegs[1]}
+            Peg 3: #{pegs[2]}"
+            
+            if moves_count == 2**(tower_height) - 1 
+                puts "Congratulations! You were efficient with your moves!"
+            else
+                puts "Why not try again?"
+            end
+            
+        end
+    end
+        
+
+
+      
